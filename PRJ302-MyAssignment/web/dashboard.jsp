@@ -55,6 +55,15 @@
         </div>
     <h2>Các đơn đã nộp gần đây</h2>
 <table>
+        <tr><th>Ngày nộp</th><th>Loại nghỉ</th><th>Thời gian</th><th>Trạng thái</th><th>Hành động</th></tr>
+            <% for (Leave leave : leaves) { %>
+    <tr>
+        <td><%= new java.text.SimpleDateFormat("dd/MM/yyyy").format(leave.getSubmittedAt()) %></td>
+        <td><%= leave.getLeaveType() %></td>
+        <td><%= new java.text.SimpleDateFormat("dd/MM/yyyy").format(leave.getStartDate()) %> - <%= new java.text.SimpleDateFormat("dd/MM/yyyy").format(leave.getEndDate()) %></td>
+        <td><%= leave.getStatus() %></td>
+        <td>
+    <% if ("Chờ duyệt".equals(leave.getStatus())) { %>
         <form action="cancel-leave" method="post" style="display:inline;">
             <input type="hidden" name="leave_id" value="<%= leave.getId() %>">
             <button type="submit" class="cancel-btn" onclick="return confirm('Bạn có chắc muốn hủy đơn này?')">Hủy</button>
